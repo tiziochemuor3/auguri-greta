@@ -213,7 +213,6 @@
         .final-section {
             min-height: 100vh;
             display: none;
-            /* Attivato da JS */
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -383,7 +382,7 @@
         </div>
 
         <div class="quiz-section reveal-section">
-            <h3>Ti è piaciuto?</h3>
+            <h3 id="titoloQuiz">Ti è piaciuto?</h3>
             <div class="btn-container">
                 <button id="btnSi" class="btn">SÌ</button>
                 <button id="btnNo" class="btn">NO</button>
@@ -416,8 +415,8 @@
             </div>
 
             <div id="box-messaggio" class="output-box">
-                <h4 style="color: #238636; margin-bottom: 10px;">Dai scrivi un messaggio (solo se vuoi eh.), tranquilla non mi arriverà mai
-                    :</h4>
+                <h4 style="color: #238636; margin-bottom: 10px;">Dai scrivi un messaggio (solo se vuoi eh.), tranquilla
+                    non mi arriverà mai :</h4>
                 <textarea id="testoFeedback" placeholder="Scrivi qualcosa qui..."></textarea>
                 <button class="btn" style="background: #238636; color: white; padding: 5px 15px; font-size: 0.9rem;"
                     onclick="inviaMessaggio()">Invia</button>
@@ -457,17 +456,40 @@
         // LOGICA DEI BOTTONI PRINCIPALI (SÌ / NO)
         const btnSi = document.getElementById('btnSi');
         const btnNo = document.getElementById('btnNo');
+        const titoloQuiz = document.getElementById('titoloQuiz'); // Recupero l'elemento del titolo
         const finalSection = document.getElementById('finalSection');
 
         let clickCount = 0;
         let siPaddingX = 25; let siPaddingY = 10; let siFontSize = 1.1;
         let noPaddingX = 25; let noPaddingY = 10; let noFontSize = 1.1;
 
+        // Array con le scritte che cambiano ogni volta che preme NO
+        const frasiNo = [
+            "Sicura?? Riprova 🙄",
+            "Guarda che il tasto verde è più bello... 🟩",
+            "Ma come no? Dai",
+            "Stai scherzando spero...",
+            "Dai premi SÌ, non fare la difficile",
+            "Sei una ingrata. mi ferisci cosi💔",
+            "Clicca SÌ e facciamola finita",
+            "Ancora no?? sei una cavalla testarda 🖕",
+            "Ti blocco su WhatsApp se continui.",
+            "smettila. sul serio.",
+            "mi stai stancando..",
+            "dai io mi impegno per te e tu non aprezzi che palle",
+            "Niente, non vuoi collaborare... 🛑"
+        ];
+
         btnNo.addEventListener('click', () => {
             clickCount++;
             if (clickCount >= 14) {
                 btnNo.style.display = 'none';
+                titoloQuiz.innerText = "era l'unico modo per farti cliccare si 🙄";
             } else {
+                // Cambia il testo del titolo prendendo la frase corrispondente dal nostro array
+                titoloQuiz.innerText = frasiNo[clickCount - 1];
+
+                // Mantieni l'ingrandimento del tasto SÌ e il rimpicciolimento del tasto NO
                 siPaddingX += 12; siPaddingY += 6; siFontSize += 0.15;
                 btnSi.style.padding = `${siPaddingY}px ${siPaddingX}px`;
                 btnSi.style.fontSize = `${siFontSize}rem`;
@@ -506,7 +528,6 @@
                 return;
             }
 
-            // METTI QUI IL LINK CHE TI DA FORMSPREE:
             const formspreeUrl = "https://formspree.io/f/xrevogdv";
 
             fetch(formspreeUrl, {
