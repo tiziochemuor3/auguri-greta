@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auguri alla mia cavalla preferita</title>
+
+    <style>
+        /* ==========================================================================
+           RESET E STILE BASE
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #0d1117;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #c9d1d9;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            color: #58a6ff;
+            margin-bottom: 20px;
+        }
+
+        .scroll-indicator {
+            font-size: 0.9rem;
+            color: #8b949e;
+            animation: bounce 2s infinite;
+            margin-top: 40px;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* ==========================================================================
+           CONTAINER DELLA STORIA E CARD
+           ========================================================================== */
+        .timeline-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s ease-out;
+            margin-bottom: 250px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .reveal-section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-section h2 {
+            color: #58a6ff;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .reveal-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #e6edf3;
+        }
+
+        .image-container {
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #30363d;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* ==========================================================================
+           CARD DEI VERI AUGURI
+           ========================================================================== */
+        .auguri-card {
+            background: linear-gradient(135deg, #1f242c 0%, #0d1117 100%) !important;
+            border: 2px solid #f0883e !important;
+            box-shadow: 0 0 25px rgba(240, 136, 62, 0.3);
+        }
+
+        .auguri-card h2 {
+            font-size: 2.3rem;
+            color: #f0883e;
+            margin-bottom: 20px;
+        }
+
+        .auguri-card p {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .heart {
+            color: #ff7b72;
+            font-size: 2.5rem;
+            margin-top: 15px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* ==========================================================================
+           SEZIONE DOMANDA INTERATTIVA (SÌ / NO)
+           ========================================================================== */
+        .quiz-section {
+            background: #161b22;
+            border: 2px dashed #238636;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 150px;
+        }
+
+        .quiz-section h3 {
+            font-size: 1.4rem;
+            color: #58a6ff;
+            margin-bottom: 25px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #btnSi {
+            background-color: #238636;
+            color: white;
+        }
+
+        #btnNo {
+            background-color: #da3637;
+            color: white;
+        }
+
+        /* ==========================================================================
+           SORPRESA SEGRETA FINALE (Menu a 3 Opzioni)
+           ========================================================================== */
+        .final-section {
+            min-height: 100vh;
+            display: none;
+            /* Attivato da JS */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            background: #0d1117;
+        }
+
+        .final-card {
+            background: #161b22;
+            border: 2px solid #58a6ff;
+            padding: 35px 25px;
+            border-radius: 20px;
+            max-width: 550px;
+            width: 100%;
+        }
+
+        .final-card h2 {
+            font-size: 1.8rem;
+            color: #58a6ff;
+            margin-bottom: 25px;
+        }
+
+        .menu-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .menu-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            background-color: #21262d;
+            color: #c9d1d9;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .menu-btn:hover {
+            background-color: #30363d;
+        }
+
+        .menu-btn.insulto {
+            background-color: #da3637;
+            color: white;
+            border: none;
+        }
+
+        .menu-btn.insulto:hover {
+            background-color: #b62b2c;
+        }
+
+        .output-box {
+            display: none;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        textarea {
+            width: 100%;
+            height: 80px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            resize: none;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero">
+        <h1>Sito Caricato Con Successo... 🌐</h1>
+        <p style="color: #8b949e; max-width: 300px; font-size: 1.1rem; margin-top: 10px;">
+            Fai uno scroll verso il basso per iniziare.
+        </p>
+        <div class="scroll-indicator">Scorri in giù ↓</div>
+    </div>
+
+    <div class="timeline-container">
+
+        <div class="reveal-section">
+            <h2>Capitolo 1: il secondo inizio</h2>
+            <p>Così a caso, Francesca mi scrive "hey, sblocca Greta" e da lì è reiniziato tutto. Era proprio il 15
+                giugno, proprio come oggi.</p>
+            <div class="image-container">
+                <img src="https://picsum.photos/600/400?random=1" alt="Foto Inizio">
+            </div>
+        </div>
+
+        <div class="reveal-section">
+            <h2>Capitolo 2: il colpo di scena</h2>
+            <p>Neanche dopo una settimana abbiamo smesso di scriverci (world record) e poi mi mandi uno sticker e il
+                messaggio "NON ME LO RICORDOOO quindi lo metterò appena ricordo".</p>
+            <div class="image-container">
+                <img src="https://picsum.photos/600/400?random=2" alt="Foto Momenti Belli">
+            </div>
+        </div>
+
+        <div class="reveal-section">
+            <h2>Capitolo 3: sta andando tutto troppo bene</h2>
+            <p>Poi ci siamo iniziati a scrivere ogni giorno, ogni minuto, ogni secondo. (E meno male che a me piaceva)
+                Addirittura quando ti si bloccava WhatsApp ci scrivevamo su TikTok inviandoci TikTok strani ma belli...
+                penso..</p>
+            <div class="image-container">
+                <img src="https://picsum.photos/600/400?random=3" alt="Foto Bug">
+            </div>
+        </div>
+
+        <div class="reveal-section">
+            <h2>Capitolo 4: cosa sta succedendo</h2>
+            <p>Senza rendermene conto ci siamo iniziati ad aprire l'uno con l'altra fino addirittura a matchare a fare
+                chiamate, videochiamate ogni secondo stavo da dio con te, per me eri tutto. (Il periodo migliore secondo
+                me, concordi?)</p>
+            <div class="image-container">
+                <img src="https://picsum.photos/600/400?random=4" alt="Foto Silenzio">
+            </div>
+        </div>
+
+        <div class="reveal-section">
+            <h2>Capitolo 5: il momento più basso</h2>
+            <p>All'improvviso abbiamo smesso di scriverci ed è stato strano per me, mi sentivo vuoto, mi mancava
+                qualcosa... mi mancavi tu</p>
+            <div class="image-container">
+                <img src="https://picsum.photos/600/400?random=5" alt="Foto Riavvio">
+            </div>
+        </div>
+
+        <div class="reveal-section">
+            <h2>Capitolo 6: colpo di scena parte due 🔄</h2>
+            <p>All'improvviso boom, rieccoci, almeno spero.. (non mi bloccare a caso ti prego). Ora è il 15 giugno 2026
+                ed è pure il tuo compleanno, ed è passato esattamente un anno da quando siamo tornati a parlare</p>
+            <div class="image-container">
+                <img src="https://picsum.photos/600/400?random=6" alt="Foto Oggi">
+            </div>
+        </div>
+
+        <div class="reveal-section auguri-card">
+            <h2>TANTI AUGURI! 🎉</h2>
+            <p>Greta ti voglio tanto bene, tanti auguri</p>
+            <div class="heart">❤️</div>
+        </div>
+
+        <div class="quiz-section reveal-section">
+            <h3>Ti è piaciuto? (Dai, se dici di no sei una ingrata)</h3>
+            <div class="btn-container">
+                <button id="btnSi" class="btn">SÌ</button>
+                <button id="btnNo" class="btn">NO</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="final-section" id="finalSection">
+        <div class="final-card">
+            <h2>Meno male che ti è piaciuto (non avevi scelta però va bene così)</h2>
+            <p style="color: #8b949e; font-size: 0.95rem; margin-bottom: 20px;">Scegli una delle seguenti opzioni</p>
+
+            <div class="menu-options">
+                <button class="menu-btn" onclick="mostraOpzione('dedica')">1. Leggi dedica 📖</button>
+                <button class="menu-btn" onclick="mostraOpzione('messaggio')">2. Scrivi un piccolo messaggio ✍️</button>
+                <button class="menu-btn insulto" onclick="mostraOpzione('troll')">3. No, fa schifo 🛑</button>
+            </div>
+
+            <div id="box-dedica" class="output-box">
+                <h4 style="color: #58a6ff; margin-bottom: 10px;">La mia dedica per te:</h4>
+                <p style="font-size: 1rem; line-height: 1.5;">
+                    È stato un anno strano e anche molto agitato, però anche un anno bellissimo e super super
+                    divertente. Mi sono divertito tantissimo con te, ti voglio tanto bene. Ci sono stati tanti mood in
+                    questo anno, dal litigare a voler parlare a sentire che ci mancavamo (HO LE CHAT NON PUOI NEGARLO) e
+                    ora hai 14 anni. Quest'anno grazie a te è passato super velocemente e anche molto bene, cioè mi hai
+                    fatto sentire a casa, eri il mio punto sicuro, sei troppo matura per la tua età. Ti voglio tanto
+                    bene Greta, auguri.
+                </p>
+            </div>
+
+            <div id="box-messaggio" class="output-box">
+                <h4 style="color: #238636; margin-bottom: 10px;">Dai scrivi un messaggio, tranquilla non mi arriverà mai
+                    (solo se vuoi eh.):</h4>
+                <textarea id="testoFeedback" placeholder="Scrivi qualcosa qui..."></textarea>
+                <button class="btn" style="background: #238636; color: white; padding: 5px 15px; font-size: 0.9rem;"
+                    onclick="inviaMessaggio()">Invia</button>
+                <p id="msgInviato"
+                    style="color: #58a6ff; font-size: 0.9rem; margin-top: 10px; display: none; font-style: italic;"></p>
+            </div>
+
+            <div id="box-troll" class="output-box" style="border-color: #da3637; background: #261616;">
+                <h4 style="color: #ff7b72; margin-bottom: 10px;">Ed eccola qui sempre a rovinare il momento 🙄</h4>
+                <p style="font-size: 1rem; color: #ff7b72; font-family: monospace;">
+                    Non so che mettere, quindi boh. Bella la vita..
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Gestione comparsa elementi allo scroll
+        function revealOnScroll() {
+            const sections = document.querySelectorAll('.reveal-section');
+            const windowHeight = window.innerHeight;
+
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const revealPoint = 150;
+
+                if (sectionTop < windowHeight - revealPoint) {
+                    section.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // LOGICA DEI BOTTONI PRINCIPALI (SÌ / NO)
+        const btnSi = document.getElementById('btnSi');
+        const btnNo = document.getElementById('btnNo');
+        const finalSection = document.getElementById('finalSection');
+
+        let clickCount = 0;
+        let siPaddingX = 25; let siPaddingY = 10; let siFontSize = 1.1;
+        let noPaddingX = 25; let noPaddingY = 10; let noFontSize = 1.1;
+
+        btnNo.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount >= 14) {
+                btnNo.style.display = 'none';
+            } else {
+                siPaddingX += 12; siPaddingY += 6; siFontSize += 0.15;
+                btnSi.style.padding = `${siPaddingY}px ${siPaddingX}px`;
+                btnSi.style.fontSize = `${siFontSize}rem`;
+
+                noPaddingX = Math.max(5, noPaddingX - 1.5);
+                noPaddingY = Math.max(2, noPaddingY - 0.6);
+                noFontSize = Math.max(0.6, noFontSize - 0.04);
+                btnNo.style.padding = `${noPaddingY}px ${noPaddingX}px`;
+                btnNo.style.fontSize = `${noFontSize}rem`;
+            }
+        });
+
+        btnSi.addEventListener('click', () => {
+            finalSection.style.display = 'flex';
+            finalSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // GESTIONE DEL MENU INTERATTIVO A 3 OPZIONI
+        function mostraOpzione(tipo) {
+            document.querySelectorAll('.output-box').forEach(box => {
+                box.style.display = 'none';
+            });
+            document.getElementById('msgInviato').style.display = 'none';
+            document.getElementById('box-' + tipo).style.display = 'block';
+            document.getElementById('box-' + tipo).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // INVIO DEL MESSAGGIO DI NASCOSTO ALLA TUA EMAIL
+        function inviaMessaggio() {
+            const area = document.getElementById('testoFeedback');
+            const msg = document.getElementById('msgInviato');
+            const testo = area.value.trim();
+
+            if (testo === "") {
+                alert("Scrivi qualcosa prima di inviare!");
+                return;
+            }
+
+            // METTI QUI IL LINK CHE TI DA FORMSPREE:
+            const formspreeUrl = "https://formspree.io/f/IL_TUO_CODICE_QUI";
+
+            fetch(formspreeUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    messaggio_di_greta: testo
+                })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        msg.innerText = "Ma sei seria.. hai inviato qualcosa.. non me lo aspettavo.. apprezzo lo sforzo";
+                        msg.style.display = 'block';
+                        area.value = "";
+                    } else {
+                        msg.innerText = "Errore di connessione al database... riprova più tardi.";
+                        msg.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    msg.innerText = "Errore di connessione al database... riprova più tardi.";
+                    msg.style.display = 'block';
+                });
+        }
+    </script>
+
+</body>
+
+</html>
