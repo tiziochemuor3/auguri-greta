@@ -130,9 +130,11 @@
             color: #e6edf3;
         }
 
+        /* AGGIORNATO: Ottimizzazione per immagini verticali su smartphone */
         .image-container {
             width: 100%;
-            margin-top: 15px;
+            max-width: 340px;
+            margin: 15px auto 0 auto;
             border-radius: 8px;
             overflow: hidden;
             border: 1px solid #30363d;
@@ -140,9 +142,10 @@
 
         .image-container img {
             width: 100%;
-            height: auto;
+            max-height: 450px;
             display: block;
-            object-fit: cover;
+            object-fit: contain;
+            background-color: #0d1117;
         }
 
         /* ==========================================================================
@@ -518,24 +521,20 @@
 
 <body>
 
-    <!-- Pulsante Controllo Musica -->
     <button class="audio-control" id="audioToggle">
         <span id="audioIcon">🎵</span> <span id="audioText">Attiva Musica</span>
     </button>
 
     <audio id="bgMusic" loop src="love_me_not.mp3"></audio>
 
-    <!-- Striscione Appeso -->
     <div class="banner-container" id="bannerAuguri">
         <div class="banner-rope">
             Tanti auguri ancora per i tuoi 14 anni! 🎂✨
         </div>
     </div>
 
-    <!-- BOUQUET ARTISTICO INTERATTIVO: ESATTAMENTE 14 FIORI (9 TULIPANI E 5 FIORI DI ACCOMPAGNAMENTO) -->
     <div class="tulips-container" id="tulipsBouquet">
 
-        <!-- 1. Tulipano Arancione (Esterno Sinistro) -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(-40deg) translateY(45px); z-index: 10;">
             <path d="M50,140 Q40,90 50,40" stroke="#166534" stroke-width="4.5" fill="none" />
             <path d="M45,95 Q20,80 35,65" fill="#14532d" />
@@ -544,7 +543,6 @@
             <circle cx="50" cy="35" r="3" fill="#ffedd5" opacity="0.3" />
         </svg>
 
-        <!-- 2. Fiore Accompagnamento (Margherita Elegante) -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(-33deg) translateY(25px); z-index: 12;">
             <path d="M50,140 Q45,95 50,50" stroke="#14532d" stroke-width="3.5" fill="none" />
             <g transform="translate(50,50)">
@@ -556,21 +554,18 @@
             </g>
         </svg>
 
-        <!-- 3. Tulipano Arancione -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(-26deg) translateY(10px); z-index: 14;">
             <path d="M50,140 Q46,90 50,40" stroke="#166534" stroke-width="4.5" fill="none" />
             <path d="M30,40 C18,8 45,3 50,32 C55,3 82,8 70,40 C63,65 37,65 30,40 Z" fill="#d97706" />
             <path d="M40,43 C33,18 48,12 50,32 C52,12 67,18 60,43 C54,58 46,58 40,43 Z" fill="#ea580c" />
         </svg>
 
-        <!-- 4. Tulipano Arancione Intermedio -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(-19deg) translateY(-5px); z-index: 16;">
             <path d="M50,140 Q48,90 50,40" stroke="#15803d" stroke-width="4" fill="none" />
             <path d="M30,40 C18,8 45,3 50,32 C55,3 82,8 70,40 C63,65 37,65 30,40 Z" fill="#ea580c" />
             <path d="M40,43 C33,18 48,12 50,32 C52,12 67,18 60,43 C54,58 46,58 40,43 Z" fill="#f97316" />
         </svg>
 
-        <!-- 5. Fiore Accompagnamento (Margherita) -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(-12deg) translateY(-18px); z-index: 18;">
             <path d="M50,140 Q48,95 50,50" stroke="#14532d" stroke-width="3.5" fill="none" />
             <g transform="translate(50,50)">
@@ -582,7 +577,6 @@
             </g>
         </svg>
 
-        <!-- 6. Tulipano Arancione Centrale Sinistro -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(-6deg) translateY(-32px); z-index: 20;">
             <path d="M50,140 Q49,90 50,40" stroke="#166534" stroke-width="4.5" fill="none" />
             <path d="M55,90 Q75,75 60,60" fill="#14532d" />
@@ -590,7 +584,6 @@
             <path d="M40,43 C33,18 48,12 50,32 C52,12 67,18 60,43 C54,58 46,58 40,43 Z" fill="#f97316" />
         </svg>
 
-        <!-- 7. Tulipano Arancione Reale (Il più alto al centro) -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(0deg) translateY(-42px); z-index: 25;">
             <path d="M50,140 Q50,90 50,40" stroke="#115e59" stroke-width="5" fill="none" />
             <path d="M30,40 C18,8 45,3 50,32 C55,3 82,8 70,40 C63,65 37,65 30,40 Z" fill="#d97706" />
@@ -598,14 +591,12 @@
             <path d="M45,40 C42,25 48,20 50,32 C52,20 58,25 55,40 Z" fill="#ea580c" />
         </svg>
 
-        <!-- 8. Tulipano Arancione Centrale Destro -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(6deg) translateY(-32px); z-index: 20;">
             <path d="M50,140 Q51,90 50,40" stroke="#166534" stroke-width="4.5" fill="none" />
             <path d="M30,40 C18,8 45,3 50,32 C55,3 82,8 70,40 C63,65 37,65 30,40 Z" fill="#ea580c" />
             <path d="M40,43 C33,18 48,12 50,32 C52,12 67,18 60,43 C54,58 46,58 40,43 Z" fill="#f97316" />
         </svg>
 
-        <!-- 9. Fiore Accompagnamento (Margherita) -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(12deg) translateY(-18px); z-index: 18;">
             <path d="M50,140 Q52,95 50,50" stroke="#14532d" stroke-width="3.5" fill="none" />
             <g transform="translate(50,50)">
@@ -617,14 +608,12 @@
             </g>
         </svg>
 
-        <!-- 10. Tulipano Arancione -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(19deg) translateY(-5px); z-index: 16;">
             <path d="M50,140 Q52,90 50,40" stroke="#15803d" stroke-width="4" fill="none" />
             <path d="M30,40 C18,8 45,3 50,32 C55,3 82,8 70,40 C63,65 37,65 30,40 Z" fill="#ea580c" />
             <path d="M40,43 C33,18 48,12 50,32 C52,12 67,18 60,43 C54,58 46,58 40,43 Z" fill="#f97316" />
         </svg>
 
-        <!-- 11. Tulipano Arancione Intermedio Destro -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(26deg) translateY(10px); z-index: 14;">
             <path d="M50,140 Q54,90 50,40" stroke="#166534" stroke-width="4.5" fill="none" />
             <path d="M45,90 Q70,80 55,65" fill="#14532d" />
@@ -632,7 +621,6 @@
             <path d="M40,43 C33,18 48,12 50,32 C52,12 67,18 60,43 C54,58 46,58 40,43 Z" fill="#ea580c" />
         </svg>
 
-        <!-- 12. Fiore Accompagnamento (Margherita Elegante) -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(33deg) translateY(25px); z-index: 12;">
             <path d="M50,140 Q55,95 50,50" stroke="#14532d" stroke-width="3.5" fill="none" />
             <g transform="translate(50,50)">
@@ -644,7 +632,6 @@
             </g>
         </svg>
 
-        <!-- 13. Tulipano Arancione (Esterno Destro) -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(40deg) translateY(45px); z-index: 10;">
             <path d="M50,140 Q60,90 50,40" stroke="#166534" stroke-width="4.5" fill="none" />
             <path d="M30,40 C18,8 45,3 50,32 C55,3 82,8 70,40 C63,65 37,65 30,40 Z" fill="#ea580c" />
@@ -652,7 +639,6 @@
             <circle cx="50" cy="35" r="3" fill="#ffedd5" opacity="0.3" />
         </svg>
 
-        <!-- 14. Fiore di Accompagnamento (Margherita Bassa Centrale) -->
         <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(2deg) translateY(20px); z-index: 26;">
             <path d="M50,140 Q50,100 50,60" stroke="#14532d" stroke-width="3" fill="none" />
             <g transform="translate(50,60)">
@@ -681,7 +667,7 @@
             <p>Così a caso, Francesca mi scrive "Ehi, sblocca Greta" e da lì è ricominciato tutto. Era proprio il 15
                 giugno, proprio come oggi.</p>
             <div class="image-container">
-                <img src="capitolo1.jpg" alt="Immagine Capitolo 1">
+                <img src="capitolo1.jpg" alt="Immagine Capitolo 1" style="max-width: 100%; h-auto: auto;">
             </div>
         </div>
 
@@ -690,7 +676,7 @@
             <p>Neanche dopo una settimana abbiamo smesso di scriverci (world record) e poi mi mandi uno sticker con il
                 messaggio: "senti tu brutto mi manchi".</p>
             <div class="image-container">
-                <img src="capitolo2.jpg" alt="Immagine Capitolo 2">
+                <img src="capitolo2.jpg" alt="Immagine Capitolo 2" style="max-width: 100%; h-auto: auto;">
             </div>
         </div>
 
@@ -711,13 +697,13 @@
                 quella che senti se clicchi "attiva musica"). Stavo da dio con te, per me eri tutto. (Il periodo
                 migliore secondo me. Concordi?)</p>
             <div class="image-container">
-                <img src="capitolo4.jpg" alt="Immagine Capitolo 4">
+                <img src="capitolo4.jpg" alt="Immagine Capitolo 4" style="max-width: 100%; h-auto: auto;">
             </div>
         </div>
 
         <div class="reveal-section">
             <h2>Capitolo 5: Una piccola pausa ⏱️</h2>
-            <p>C'è stato un periodo in cui le cose sono cambiate e abbiamo smesso di scriverci como prima. È stato un
+            <p>C'è stato un periodo in cui le cose sono cambiate e abbiamo smesso di scriverci come prima. È stato un
                 momento strano e un po' vuoto, inutile negarlo, ma dentro di me sapevo che non poteva finire così tra di
                 noi. Stavamo solo prendendo la rincorsa.</p>
             <div class="image-container">
@@ -749,7 +735,6 @@
             </div>
         </div>
 
-        <!-- SEZIONE INTERATTIVA: Torta e Desiderio -->
         <div class="torta-section" id="tortaSezione">
             <h3 style="color: #58a6ff;">Esprimi un desiderio! 🎂</h3>
 
@@ -765,7 +750,6 @@
                 <circle cx="120" cy="103" r="6" fill="#e53e3e" />
                 <circle cx="150" cy="98" r="6" fill="#e53e3e" />
 
-                <!-- Candeline Interattive con hitbox giganti -->
                 <g id="candelaCompleta1">
                     <rect x="80" y="60" width="8" height="30" fill="#3182ce" />
                     <path class="candle-flame" id="fiamma1" d="M84,42 C88,50 84,60 84,60 C84,60 80,50 84,42 Z"
@@ -783,7 +767,7 @@
 
             <p id="istruzioniCandele"
                 style="color: #a0aec0; font-size: 0.95rem; margin-bottom: 15px; display:none; font-style: italic;">
-                Adesso clicca sulle candeline per spegnerle! 🕯️
+                Adessen clicca sulle candeline per spegnerle! 🕯️
             </p>
 
             <div class="wish-container" id="wishInputArea">
