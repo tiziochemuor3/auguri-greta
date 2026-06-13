@@ -342,13 +342,13 @@
 
 <body>
 
-    <!-- Pulsante Controllo Musica Stereo -->
+    <!-- Pulsante Controllo Musica -->
     <button class="audio-control" id="audioToggle">
         <span id="audioIcon">🎵</span> <span id="audioText">Attiva Musica</span>
     </button>
 
-    <!-- Elemento Audio Sottofondo (Love Me Not) -->
-    <audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+    <!-- Elemento Audio Sottofondo puntato sul file corretto -->
+    <audio id="bgMusic" loop src="love_me_not.mp3"></audio>
 
     <div class="hero">
         <h1>Sito Caricato Con Successo... 🌐</h1>
@@ -402,7 +402,7 @@
 
         <div class="reveal-section">
             <h2>Capitolo 6: Colpo di scena - parte due 🔄</h2>
-            <p>All'improvviso, boom, rieccoci! Almeno spero... (non mi bloccare a caso, ti prego). Ora è il 15 giugno 2026 ed è pure il tuo compleanno, ed è passato esattamente un anno da quando siamo tornati a parlare.</p>
+            <p>All'improvviso, boom, rieccoci! Almeno spero... (non mi bloccare a caso, ti prego). Ora è il 15 giugno ed è pure il tuo compleanno, ed è passato esattamente un anno da quando siamo tornati a parlare.</p>
             <div class="image-container">
                 <img src="https://picsum.photos/600/400?random=6" alt="Foto Oggi">
             </div>
@@ -460,14 +460,14 @@
     </div>
 
     <script>
-        // GESTIONE TRACCIA AUDIO AUDIO
+        // GESTIONE TRACCIA AUDIO
         const bgMusic = document.getElementById('bgMusic');
         const audioToggle = document.getElementById('audioToggle');
         const audioIcon = document.getElementById('audioIcon');
         const audioText = document.getElementById('audioText');
 
-        // Sostituisci questo link di esempio con l'URL diretto del file MP3 di "Love Me Not"
-        bgMusic.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"; 
+        // Impostato sul nome esatto del tuo file su GitHub
+        bgMusic.src = "love_me_not.mp3"; 
 
         audioToggle.addEventListener('click', () => {
             if (bgMusic.paused) {
