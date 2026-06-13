@@ -258,14 +258,12 @@
             animation: fadeIn 0.6s ease-in-out forwards;
         }
 
-        /* Grafica SVG della Torta */
         .cake-svg {
             width: 200px;
             height: auto;
             margin: 20px 0;
         }
 
-        /* Area di click allargata per le candele (Facilissime da spegnere!) */
         .hit-box-candela {
             cursor: pointer;
             fill: transparent;
@@ -274,7 +272,7 @@
 
         .candle-flame {
             animation: flicker 0.6s infinite alternate;
-            pointer-events: none; /* Disattiva così il click passa alla hitbox gigante */
+            pointer-events: none;
         }
 
         @keyframes flicker {
@@ -294,7 +292,7 @@
         }
 
         /* ==========================================================================
-           ELEMENTI DELLE ANIMAZIONI SPECIALI (TULIPANI, STRISCIONE, CORIANDOLI)
+           ELEMENTI DELLE ANIMAZIONI SPECIALI (MAZZO DI FIORI MIXED, STRISCIONE)
            ========================================================================== */
         .confetti {
             position: fixed;
@@ -306,36 +304,34 @@
         }
 
         @keyframes fall {
-            to {
-                transform: translateY(105vh) rotate(360deg);
-            }
+            to { transform: translateY(105vh) rotate(360deg); }
         }
 
-        /* Tulipani Arancioni in Primo Piano */
+        /* MAZZO DI FIORI COMPLESSO ED ELEGANTE (TULIPANI + ROSE ROSSO SANGUE) */
         .tulips-container {
             position: fixed;
-            bottom: -300px;
+            bottom: -350px;
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            max-width: 800px;
+            max-width: 650px;
             display: flex;
             justify-content: center;
             align-items: flex-end;
             z-index: 10000;
             pointer-events: none;
-            transition: bottom 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: bottom 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
         }
 
         .tulips-container.show {
-            bottom: -25px;
+            bottom: -30px;
         }
 
-        .tulip-svg {
-            width: 110px;
+        .flower-svg {
+            width: 115px;
             height: auto;
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
-            margin: 0 -25px;
+            filter: drop-shadow(0 6px 15px rgba(0,0,0,0.6));
+            margin: 0 -35px; /* Unione stretta per creare l'effetto mazzo intrecciato */
         }
 
         /* Striscione Appeso Realistico */
@@ -470,45 +466,79 @@
 
     <audio id="bgMusic" loop src="love_me_not.mp3"></audio>
 
-    <!-- Striscione Appeso (Nascosto all'inizio) -->
+    <!-- Striscione Appeso -->
     <div class="banner-container" id="bannerAuguri">
         <div class="banner-rope">
             Tanti auguri ancora per i tuoi 14 anni! 🎂✨
         </div>
     </div>
 
-    <!-- Mazzo di Molti Più Tulipani Arancioni (Nascosto all'inizio) -->
+    <!-- MAZZO DI FIORI COMPLESSO ED ELEGANTE AGGIORNATO (Tulipani Arancioni + Rose Rosso Sangue) -->
     <div class="tulips-container" id="tulipsBouquet">
-        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(-30deg) translateY(10px);">
-            <path d="M50,140 Q45,90 50,40" stroke="#34d399" stroke-width="4" fill="none"/>
+        
+        <!-- 1. Tulipano Sinistro Esterno -->
+        <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(-35deg) translateY(20px);">
+            <path d="M50,140 Q45,90 50,40" stroke="#15803d" stroke-width="4" fill="none"/>
             <path d="M30,40 C20,10 45,5 50,35 C55,5 80,10 70,40 C65,65 35,65 30,40 Z" fill="#f97316"/>
             <path d="M40,45 C35,20 48,15 50,35 C52,15 65,20 60,45 C55,60 45,60 40,45 Z" fill="#ea580c"/>
         </svg>
-        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(-15deg);">
-            <path d="M50,140 Q45,90 50,40" stroke="#34d399" stroke-width="4" fill="none"/>
+
+        <!-- 2. ROSA ROSSO SANGUE -->
+        <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(-22deg) translateY(5px);">
+            <path d="M50,140 Q48,85 50,45" stroke="#166534" stroke-width="4" fill="none"/>
+            <!-- Foglioline scure -->
+            <path d="M50,80 Q25,75 45,60" fill="#14532d"/>
+            <!-- Bocciolo Rosa Rosso Sangue Profondo -->
+            <ellipse cx="50" cy="40" rx="22" ry="25" fill="#991b1b"/>
+            <path d="M32,35 C35,15 48,10 50,38 C52,10 65,15 68,35 C65,55 35,55 32,35 Z" fill="#7f1d1d"/>
+            <path d="M42,32 C45,22 55,22 58,32 C55,42 45,42 42,32 Z" fill="#991b1b"/>
+        </svg>
+
+        <!-- 3. Tulipano Arancione -->
+        <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(-12deg) translateY(-10px);">
+            <path d="M50,140 Q50,90 50,40" stroke="#15803d" stroke-width="4" fill="none"/>
             <path d="M30,40 C20,10 45,5 50,35 C55,5 80,10 70,40 C65,65 35,65 30,40 Z" fill="#f97316"/>
             <path d="M40,45 C35,20 48,15 50,35 C52,15 65,20 60,45 C55,60 45,60 40,45 Z" fill="#ea580c"/>
         </svg>
-        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(-5deg) translateY(-15px);">
-            <path d="M50,140 Q50,90 50,40" stroke="#34d399" stroke-width="4" fill="none"/>
+
+        <!-- 4. ROSA ROSSO SANGUE CENTRALE SINISTRA -->
+        <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(-3deg) translateY(-25px);">
+            <path d="M50,140 Q52,90 50,45" stroke="#166534" stroke-width="4" fill="none"/>
+            <ellipse cx="50" cy="40" rx="24" ry="26" fill="#7f1d1d"/>
+            <path d="M30,35 C32,12 48,8 50,38 C52,8 68,12 70,35 C65,58 35,58 30,35 Z" fill="#991b1b"/>
+            <path d="M40,30 C43,18 57,18 60,30 C57,40 43,40 40,30 Z" fill="#7f1d1d"/>
+        </svg>
+
+        <!-- 5. Tulipano Centrale Alto -->
+        <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(5deg) translateY(-35px);">
+            <path d="M50,140 Q50,90 50,40" stroke="#15803d" stroke-width="4" fill="none"/>
             <path d="M30,40 C20,10 45,5 50,35 C55,5 80,10 70,40 C65,65 35,65 30,40 Z" fill="#f97316"/>
             <path d="M40,45 C35,20 48,15 50,35 C52,15 65,20 60,45 C55,60 45,60 40,45 Z" fill="#ea580c"/>
         </svg>
-        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(5deg) translateY(-20px);">
-            <path d="M50,140 Q50,90 50,40" stroke="#34d399" stroke-width="4" fill="none"/>
+
+        <!-- 6. ROSA ROSSO SANGUE CENTRALE DESTRA -->
+        <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(14deg) translateY(-20px);">
+            <path d="M50,140 Q49,88 50,45" stroke="#166534" stroke-width="4" fill="none"/>
+            <path d="M50,85 Q75,80 55,65" fill="#14532d"/>
+            <ellipse cx="50" cy="40" rx="23" ry="25" fill="#991b1b"/>
+            <path d="M31,35 C34,14 48,9 50,38 C52,9 66,14 69,35 C66,56 34,56 31,35 Z" fill="#7f1d1d"/>
+            <path d="M41,31 C44,20 56,20 59,31 C56,41 44,41 41,31 Z" fill="#b91c1c"/>
+        </svg>
+
+        <!-- 7. Tulipano Destro -->
+        <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(26deg) translateY(2px);">
+            <path d="M50,140 Q55,90 50,40" stroke="#15803d" stroke-width="4" fill="none"/>
             <path d="M30,40 C20,10 45,5 50,35 C55,5 80,10 70,40 C65,65 35,65 30,40 Z" fill="#f97316"/>
             <path d="M40,45 C35,20 48,15 50,35 C52,15 65,20 60,45 C55,60 45,60 40,45 Z" fill="#ea580c"/>
         </svg>
-        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(15deg) translateY(-5px);">
-            <path d="M50,140 Q55,90 50,40" stroke="#34d399" stroke-width="4" fill="none"/>
-            <path d="M30,40 C20,10 45,5 50,35 C55,5 80,10 70,40 C65,65 35,65 30,40 Z" fill="#f97316"/>
-            <path d="M40,45 C35,20 48,15 50,35 C52,15 65,20 60,45 C55,60 45,60 40,45 Z" fill="#ea580c"/>
+
+        <!-- 8. ROSA ROSSO SANGUE ESTERNA DESTRA -->
+        <svg class="flower-svg" viewBox="0 0 100 150" style="transform: rotate(38deg) translateY(22px);">
+            <path d="M50,140 Q53,82 50,45" stroke="#166534" stroke-width="4" fill="none"/>
+            <ellipse cx="50" cy="40" rx="21" ry="24" fill="#7f1d1d"/>
+            <path d="M32,36 C35,16 47,11 50,39 C53,11 65,16 68,36 C65,54 35,54 32,36 Z" fill="#991b1b"/>
         </svg>
-        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(25deg) translateY(12px);">
-            <path d="M50,140 Q55,90 50,40" stroke="#34d399" stroke-width="4" fill="none"/>
-            <path d="M30,40 C20,10 45,5 50,35 C55,5 80,10 70,40 C65,65 35,65 30,40 Z" fill="#f97316"/>
-            <path d="M40,45 C35,20 48,15 50,35 C52,15 65,20 60,45 C55,60 45,60 40,45 Z" fill="#ea580c"/>
-        </svg>
+
     </div>
 
     <div class="hero">
@@ -588,38 +618,31 @@
             <h3 style="color: #58a6ff;">Esprimi un desiderio! 🎂</h3>
             
             <svg class="cake-svg" viewBox="0 0 200 180">
-                <!-- Vassoio -->
                 <ellipse cx="100" cy="150" rx="90" ry="15" fill="#718096" />
-                <!-- Corpo Torta -->
                 <path d="M25,100 Q25,115 100,115 Q175,115 175,100 L175,140 Q175,155 100,155 Q25,155 25,140 Z" fill="#edf2f7" />
-                <!-- Ripieno Fragola -->
                 <path d="M25,120 Q25,130 100,130 Q175,130 175,120 L175,128 Q175,138 100,138 Q25,138 25,128 Z" fill="#e53e3e" />
-                <!-- Crema Superiore -->
                 <ellipse cx="100" cy="100" rx="75" ry="15" fill="#e2e8f0" />
-                <!-- Fragoline -->
                 <circle cx="50" cy="98" r="6" fill="#e53e3e"/>
                 <circle cx="80" cy="103" r="6" fill="#e53e3e"/>
                 <circle cx="120" cy="103" r="6" fill="#e53e3e"/>
                 <circle cx="150" cy="98" r="6" fill="#e53e3e"/>
                 
-                <!-- Candeline e Fiamme -->
+                <!-- Gruppi Candeline con Hitbox ultra grandi ed efficaci -->
                 <g id="candelaCompleta1">
                     <rect x="80" y="60" width="8" height="30" fill="#3182ce" />
                     <path class="candle-flame" id="fiamma1" d="M84,42 C88,50 84,60 84,60 C84,60 80,50 84,42 Z" fill="#ff9900" />
-                    <!-- Hitbox invisibile enorme per un click facilissimo -->
-                    <rect class="hit-box-candela" id="hit1" x="65" y="35" width="38" height="60" />
+                    <rect class="hit-box-candela" id="hit1" x="60" y="25" width="45" height="70" />
                 </g>
 
                 <g id="candelaCompleta2">
                     <rect x="112" y="60" width="8" height="30" fill="#3182ce" />
                     <path class="candle-flame" id="fiamma2" d="M116,42 C120,50 116,60 116,60 C116,60 112,50 116,42 Z" fill="#ff9900" />
-                    <!-- Hitbox invisibile enorme per un click facilissimo -->
-                    <rect class="hit-box-candela" id="hit2" x="98" y="35" width="38" height="60" />
+                    <rect class="hit-box-candela" id="hit2" x="100" y="25" width="45" height="70" />
                 </g>
             </svg>
 
             <p id="istruzioniCandele" style="color: #a0aec0; font-size: 0.95rem; margin-bottom: 15px; display:none; font-style: italic;">
-                Adessen clicca sulle candeline per spegnerle! 🕯️
+                Adesso clicca sulle candeline per spegnerle! 🕯️
             </p>
 
             <div class="wish-container" id="wishInputArea">
@@ -804,18 +827,17 @@
             istruzioniCandele.style.display = 'block';
         }
 
-        // SPEGNIMENTO FACILE CON HITBOX GIGANTI
+        // SPEGNIMENTO ULTRA FACILE CON HITBOX ENORMI
         let candeleSpente = 0;
         const hitBoxes = document.querySelectorAll('.hit-box-candela');
 
         hitBoxes.forEach(hitBox => {
             hitBox.addEventListener('click', function() {
-                // Prendi la fiamma corrispondente dentro lo stesso gruppo parent
                 const fiamma = this.parentElement.querySelector('.candle-flame');
                 
                 if (fiamma && fiamma.style.display !== 'none') {
                     fiamma.style.display = 'none';
-                    this.style.pointerEvents = 'none'; // Disattiva la hitbox per evitare doppi click
+                    this.style.pointerEvents = 'none';
                     candeleSpente++;
                     
                     if (candeleSpente === 2) {
@@ -825,11 +847,11 @@
             });
         });
 
-        // EFFETTI SPECIALI CON SCOMPARSA AUTOMATICA DOPO 5 SECONDI
+        // EFFETTI SPECIALI CON TOTALE AUTOMAZIONE DOPO 5 SECONDI
         function avviaEffettiSpeciali() {
             istruzioniCandele.innerText = "Candeline spente! 🌟";
             
-            // Genera Coriandoli
+            // Generazione Coriandoli
             const colori = ['#f0883e', '#ff5500', '#58a6ff', '#238636', '#ff7b72', '#ffeb3b'];
             for (let i = 0; i < 100; i++) {
                 const coriandolo = document.createElement('div');
@@ -843,26 +865,25 @@
                 setTimeout(() => { coriandolo.remove(); }, 4000);
             }
 
-            // Fai salire Tulipani e Striscione
             const bouquet = document.getElementById('tulipsBouquet');
             const banner = document.getElementById('bannerAuguri');
 
+            // Entrano le rose, i tulipani e lo striscione
             bouquet.classList.add('show');
             banner.classList.add('show');
 
-            // DOPO 5 SECONDI: Fai sparire gli effetti e scendi al menu
+            // DOPO ESATTAMENTE 5 SECONDI: Tutto scompare e scende giù al menu
             setTimeout(() => {
-                // Rimuovi le classi per farli scivolare via con l'animazione CSS transition
                 bouquet.classList.remove('show');
                 banner.classList.remove('show');
 
-                // Rendi visibile il blocco finale e scrolla giù
+                // Sblocca la sezione finale e fa lo scroll automatico definitivo
                 finalSection.style.display = 'flex';
                 finalSection.scrollIntoView({ behavior: 'smooth' });
             }, 5000);
         }
 
-        function mostraOpzione(tipo) {
+        function muestraOpzione(tipo) {
             document.querySelectorAll('.output-box').forEach(box => { box.style.display = 'none'; });
             document.getElementById('msgInviato').style.display = 'none';
             document.getElementById('box-' + tipo).style.display = 'block';
