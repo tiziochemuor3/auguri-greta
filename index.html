@@ -265,9 +265,16 @@
             margin: 20px 0;
         }
 
+        /* Area di click allargata per le candele (Facilissime da spegnere!) */
+        .hit-box-candela {
+            cursor: pointer;
+            fill: transparent;
+            pointer-events: all;
+        }
+
         .candle-flame {
             animation: flicker 0.6s infinite alternate;
-            cursor: pointer;
+            pointer-events: none; /* Disattiva così il click passa alla hitbox gigante */
         }
 
         @keyframes flicker {
@@ -311,24 +318,24 @@
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            max-width: 650px;
+            max-width: 800px;
             display: flex;
             justify-content: center;
             align-items: flex-end;
             z-index: 10000;
             pointer-events: none;
-            transition: bottom 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: bottom 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .tulips-container.show {
-            bottom: -30px;
+            bottom: -25px;
         }
 
         .tulip-svg {
             width: 110px;
             height: auto;
-            filter: drop-shadow(0 4px 15px rgba(0,0,0,0.6));
-            margin: 0 -15px;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+            margin: 0 -25px;
         }
 
         /* Striscione Appeso Realistico */
@@ -358,7 +365,6 @@
             text-align: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             border: 2px solid #ffffff;
-            /* Effetto parentesi tonda orizzontale (curvatura corda) */
             border-radius: 50% / 0 0 25px 25px;
         }
 
@@ -462,7 +468,6 @@
         <span id="audioIcon">🎵</span> <span id="audioText">Attiva Musica</span>
     </button>
 
-    <!-- Elemento Audio Sottofondo puntato sul file corretto -->
     <audio id="bgMusic" loop src="love_me_not.mp3"></audio>
 
     <!-- Striscione Appeso (Nascosto all'inizio) -->
@@ -472,23 +477,35 @@
         </div>
     </div>
 
-    <!-- Mazzo di Tulipani Arancioni (Nascosto all'inizio) -->
+    <!-- Mazzo di Molti Più Tulipani Arancioni (Nascosto all'inizio) -->
     <div class="tulips-container" id="tulipsBouquet">
-        <!-- Generazione ripetuta dello stesso tulipano SVG con inclinazioni diverse per fare il mazzo -->
-        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(-15deg);">
+        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(-30deg) translateY(10px);">
             <path d="M50,140 Q45,90 50,40" stroke="#34d399" stroke-width="4" fill="none"/>
-            <path d="M50,90 Q20,80 47,60" stroke="#34d399" stroke-width="3" fill="none" fill="#34d399"/>
             <path d="M30,40 C20,10 45,5 50,35 C55,5 80,10 70,40 C65,65 35,65 30,40 Z" fill="#f97316"/>
             <path d="M40,45 C35,20 48,15 50,35 C52,15 65,20 60,45 C55,60 45,60 40,45 Z" fill="#ea580c"/>
         </svg>
-        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(-5deg) translateY(-10px);">
+        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(-15deg);">
+            <path d="M50,140 Q45,90 50,40" stroke="#34d399" stroke-width="4" fill="none"/>
+            <path d="M30,40 C20,10 45,5 50,35 C55,5 80,10 70,40 C65,65 35,65 30,40 Z" fill="#f97316"/>
+            <path d="M40,45 C35,20 48,15 50,35 C52,15 65,20 60,45 C55,60 45,60 40,45 Z" fill="#ea580c"/>
+        </svg>
+        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(-5deg) translateY(-15px);">
             <path d="M50,140 Q50,90 50,40" stroke="#34d399" stroke-width="4" fill="none"/>
             <path d="M30,40 C20,10 45,5 50,35 C55,5 80,10 70,40 C65,65 35,65 30,40 Z" fill="#f97316"/>
             <path d="M40,45 C35,20 48,15 50,35 C52,15 65,20 60,45 C55,60 45,60 40,45 Z" fill="#ea580c"/>
         </svg>
-        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(10deg);">
+        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(5deg) translateY(-20px);">
+            <path d="M50,140 Q50,90 50,40" stroke="#34d399" stroke-width="4" fill="none"/>
+            <path d="M30,40 C20,10 45,5 50,35 C55,5 80,10 70,40 C65,65 35,65 30,40 Z" fill="#f97316"/>
+            <path d="M40,45 C35,20 48,15 50,35 C52,15 65,20 60,45 C55,60 45,60 40,45 Z" fill="#ea580c"/>
+        </svg>
+        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(15deg) translateY(-5px);">
             <path d="M50,140 Q55,90 50,40" stroke="#34d399" stroke-width="4" fill="none"/>
-            <path d="M50,95 Q75,85 53,65" stroke="#34d399" stroke-width="3" fill="none" fill="#34d399"/>
+            <path d="M30,40 C20,10 45,5 50,35 C55,5 80,10 70,40 C65,65 35,65 30,40 Z" fill="#f97316"/>
+            <path d="M40,45 C35,20 48,15 50,35 C52,15 65,20 60,45 C55,60 45,60 40,45 Z" fill="#ea580c"/>
+        </svg>
+        <svg class="tulip-svg" viewBox="0 0 100 150" style="transform: rotate(25deg) translateY(12px);">
+            <path d="M50,140 Q55,90 50,40" stroke="#34d399" stroke-width="4" fill="none"/>
             <path d="M30,40 C20,10 45,5 50,35 C55,5 80,10 70,40 C65,65 35,65 30,40 Z" fill="#f97316"/>
             <path d="M40,45 C35,20 48,15 50,35 C52,15 65,20 60,45 C55,60 45,60 40,45 Z" fill="#ea580c"/>
         </svg>
@@ -536,7 +553,6 @@
             </div>
         </div>
 
-        <!-- CAPITOLO 5 AGGIORNATO: Leggero e orientato al futuro -->
         <div class="reveal-section">
             <h2>Capitolo 5: Una piccola pausa ⏱️</h2>
             <p>C'è stato un periodo in cui le cose sono cambiate e abbiamo smesso di scriverci come prima. È stato un momento strano e un po' vuoto, inutile negarlo, ma dentro di me sapevo che non poteva finire così tra di noi. Stavamo solo prendendo la rincorsa.</p>
@@ -545,7 +561,6 @@
             </div>
         </div>
 
-        <!-- CAPITOLO 6 AGGIORNATO: Rimossa la supplica ansiosa del blocco -->
         <div class="reveal-section">
             <h2>Capitolo 6: Colpo di scena - parte due 🔄</h2>
             <p>E infatti, boom, rieccoci qui! Più forti di prima. Ora è il 15 giugno ed è il tuo compleanno, ed è passato esattamente un anno da quando siamo tornati a parlare. E sono felicissimo che sia andata così.</p>
@@ -568,37 +583,43 @@
             </div>
         </div>
 
-        <!-- NUOVA SEZIONE INTERATTIVA: Torta e Desiderio -->
+        <!-- SEZIONE INTERATTIVA: Torta e Desiderio -->
         <div class="torta-section" id="tortaSezione">
             <h3 style="color: #58a6ff;">Esprimi un desiderio! 🎂</h3>
             
-            <!-- SVG della Torta Panna, Fragole e Candeline -->
             <svg class="cake-svg" viewBox="0 0 200 180">
                 <!-- Vassoio -->
                 <ellipse cx="100" cy="150" rx="90" ry="15" fill="#718096" />
-                <!-- Corpo Torta (Panna) -->
+                <!-- Corpo Torta -->
                 <path d="M25,100 Q25,115 100,115 Q175,115 175,100 L175,140 Q175,155 100,155 Q25,155 25,140 Z" fill="#edf2f7" />
-                <!-- Ripieno Fragola Centrale -->
+                <!-- Ripieno Fragola -->
                 <path d="M25,120 Q25,130 100,130 Q175,130 175,120 L175,128 Q175,138 100,138 Q25,138 25,128 Z" fill="#e53e3e" />
-                <!-- Crema Superiore Arricciata -->
+                <!-- Crema Superiore -->
                 <ellipse cx="100" cy="100" rx="75" ry="15" fill="#e2e8f0" />
-                <!-- Fragoline Decorative Sopra -->
+                <!-- Fragoline -->
                 <circle cx="50" cy="98" r="6" fill="#e53e3e"/>
                 <circle cx="80" cy="103" r="6" fill="#e53e3e"/>
                 <circle cx="120" cy="103" r="6" fill="#e53e3e"/>
                 <circle cx="150" cy="98" r="6" fill="#e53e3e"/>
                 
-                <!-- Candeline del 14 Compleanno -->
-                <!-- Candela 1 -->
-                <rect x="80" y="60" width="8" height="30" fill="#3182ce" />
-                <path class="candle-flame" id="fiamma1" d="M84,42 C88,50 84,60 84,60 C84,60 80,50 84,42 Z" fill="#ff9900" />
-                <!-- Candela 4 -->
-                <rect x="112" y="60" width="8" height="30" fill="#3182ce" />
-                <path class="candle-flame" id="fiamma2" d="M116,42 C120,50 116,60 116,60 C116,60 112,50 116,42 Z" fill="#ff9900" />
+                <!-- Candeline e Fiamme -->
+                <g id="candelaCompleta1">
+                    <rect x="80" y="60" width="8" height="30" fill="#3182ce" />
+                    <path class="candle-flame" id="fiamma1" d="M84,42 C88,50 84,60 84,60 C84,60 80,50 84,42 Z" fill="#ff9900" />
+                    <!-- Hitbox invisibile enorme per un click facilissimo -->
+                    <rect class="hit-box-candela" id="hit1" x="65" y="35" width="38" height="60" />
+                </g>
+
+                <g id="candelaCompleta2">
+                    <rect x="112" y="60" width="8" height="30" fill="#3182ce" />
+                    <path class="candle-flame" id="fiamma2" d="M116,42 C120,50 116,60 116,60 C116,60 112,50 116,42 Z" fill="#ff9900" />
+                    <!-- Hitbox invisibile enorme per un click facilissimo -->
+                    <rect class="hit-box-candela" id="hit2" x="98" y="35" width="38" height="60" />
+                </g>
             </svg>
 
             <p id="istruzioniCandele" style="color: #a0aec0; font-size: 0.95rem; margin-bottom: 15px; display:none; font-style: italic;">
-                Adesso clicca sulle fiamme delle candeline per spegnerle! 🕯️
+                Adessen clicca sulle candeline per spegnerle! 🕯️
             </p>
 
             <div class="wish-container" id="wishInputArea">
@@ -649,7 +670,6 @@
     </div>
 
     <script>
-        // GESTIONE TRACCIA AUDIO
         const bgMusic = document.getElementById('bgMusic');
         const audioToggle = document.getElementById('audioToggle');
         const audioIcon = document.getElementById('audioIcon');
@@ -669,7 +689,6 @@
             }
         });
 
-        // Gestione comparsa elementi allo scroll
         function revealOnScroll() {
             const sections = document.querySelectorAll('.reveal-section');
             const windowHeight = window.innerHeight;
@@ -687,7 +706,6 @@
         window.addEventListener('scroll', revealOnScroll);
         revealOnScroll();
 
-        // LOGICA DEI BOTTONI PRINCIPALI (SÌ / NO)
         const btnSi = document.getElementById('btnSi');
         const btnNo = document.getElementById('btnNo');
         const titoloQuiz = document.getElementById('titoloQuiz'); 
@@ -698,7 +716,6 @@
         const wishInputArea = document.getElementById('wishInputArea');
         const istruzioniCandele = document.getElementById('istruzioniCandele');
 
-        // ANIMAZIONE CLICK CUORE
         cuoreAuguri.addEventListener('click', (e) => {
             cuoreAuguri.classList.remove('pulse');
             cuoreAuguri.classList.add('beat-active');
@@ -713,10 +730,8 @@
                 fHeart.style.setProperty('--random-x', (Math.random() * 100 - 50) + 'px');
                 
                 document.body.appendChild(fHeart);
-
                 setTimeout(() => { fHeart.remove(); }, 1500);
             }
-
             setTimeout(() => { cuoreAuguri.classList.remove('beat-active'); }, 500);
         });
 
@@ -760,14 +775,12 @@
             }
         });
 
-        // QUANDO CLICCA SÌ -> SBUCA LA TORTA CON IL DESIDERIO
         btnSi.addEventListener('click', () => {
             document.getElementById('quizSezioneEsterna').style.marginBottom = "20px";
             tortaSezione.style.display = 'flex';
             tortaSezione.scrollIntoView({ behavior: 'smooth' });
         });
 
-        // LOGICA INVIO IN BACKGROUND DEL DESIDERIO (SILENZIOSO)
         function salvaDesiderio(haSaltato) {
             let testoDesiderio = "";
             if (haSaltato) {
@@ -780,7 +793,6 @@
                 }
             }
 
-            // Invio invisibile su Formspree
             const formspreeUrl = "https://formspree.io/f/xrevogdv";
             fetch(formspreeUrl, {
                 method: "POST",
@@ -788,22 +800,24 @@
                 body: JSON.stringify({ Desiderio_Greta_14_Anni: testoDesiderio })
             });
 
-            // Cambia l'interfaccia per forzarla a spegnere le candeline
             wishInputArea.style.display = 'none';
             istruzioniCandele.style.display = 'block';
         }
 
-        // GESTIONE DELLO SPEGNIMENTO DELLE CANDELINE
+        // SPEGNIMENTO FACILE CON HITBOX GIGANTI
         let candeleSpente = 0;
-        const fiamme = document.querySelectorAll('.candle-flame');
+        const hitBoxes = document.querySelectorAll('.hit-box-candela');
 
-        fiamme.forEach(fiamma => {
-            fiamma.addEventListener('click', function() {
-                if (this.style.display !== 'none') {
-                    this.style.display = 'none';
+        hitBoxes.forEach(hitBox => {
+            hitBox.addEventListener('click', function() {
+                // Prendi la fiamma corrispondente dentro lo stesso gruppo parent
+                const fiamma = this.parentElement.querySelector('.candle-flame');
+                
+                if (fiamma && fiamma.style.display !== 'none') {
+                    fiamma.style.display = 'none';
+                    this.style.pointerEvents = 'none'; // Disattiva la hitbox per evitare doppi click
                     candeleSpente++;
                     
-                    // Quando tutte e due le candeline vengono cliccate e spente
                     if (candeleSpente === 2) {
                         avviaEffettiSpeciali();
                     }
@@ -811,11 +825,11 @@
             });
         });
 
-        // FUNZIONE CORE ANIMAZIONI (CORIANDOLI, TULIPANI, STRISCIONE)
+        // EFFETTI SPECIALI CON SCOMPARSA AUTOMATICA DOPO 5 SECONDI
         function avviaEffettiSpeciali() {
             istruzioniCandele.innerText = "Candeline spente! 🌟";
             
-            // 1. Caduta dei Coriandoli colorati
+            // Genera Coriandoli
             const colori = ['#f0883e', '#ff5500', '#58a6ff', '#238636', '#ff7b72', '#ffeb3b'];
             for (let i = 0; i < 100; i++) {
                 const coriandolo = document.createElement('div');
@@ -829,17 +843,23 @@
                 setTimeout(() => { coriandolo.remove(); }, 4000);
             }
 
-            // 2. Salita dei tulipani arancioni dal basso
-            document.getElementById('tulipsBouquet').classList.add('show');
+            // Fai salire Tulipani e Striscione
+            const bouquet = document.getElementById('tulipsBouquet');
+            const banner = document.getElementById('bannerAuguri');
 
-            // 3. Caduta dello striscione ad arco dall'alto
-            document.getElementById('bannerAuguri').classList.add('show');
+            bouquet.classList.add('show');
+            banner.classList.add('show');
 
-            // 4. Mostra il menu finale dopo un leggero delay d'effetto
+            // DOPO 5 SECONDI: Fai sparire gli effetti e scendi al menu
             setTimeout(() => {
+                // Rimuovi le classi per farli scivolare via con l'animazione CSS transition
+                bouquet.classList.remove('show');
+                banner.classList.remove('show');
+
+                // Rendi visibile il blocco finale e scrolla giù
                 finalSection.style.display = 'flex';
                 finalSection.scrollIntoView({ behavior: 'smooth' });
-            }, 1200);
+            }, 5000);
         }
 
         function mostraOpzione(tipo) {
