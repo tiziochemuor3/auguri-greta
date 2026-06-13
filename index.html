@@ -47,22 +47,36 @@
         }
 
         @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
 
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0);
-            }
+        /* ==========================================================================
+           CONTROLLO AUDIO MUSICA
+           ========================================================================== */
+        .audio-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 50px;
+            padding: 10px 20px;
+            color: #c9d1d9;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.2s;
+        }
 
-            40% {
-                transform: translateY(-10px);
-            }
-
-            60% {
-                transform: translateY(-5px);
-            }
+        .audio-control:hover {
+            background: #30363d;
         }
 
         /* ==========================================================================
@@ -143,20 +157,46 @@
             color: #ff7b72;
             font-size: 2.5rem;
             margin-top: 15px;
+            cursor: pointer;
+            display: inline-block;
+            user-select: none;
             animation: pulse 1.5s infinite;
+            transition: transform 0.1s ease;
         }
 
         @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .heart.beat-active {
+            animation: heartBeatEffect 0.5s ease-out forwards;
+        }
+
+        @keyframes heartBeatEffect {
+            0% { transform: scale(1); filter: drop-shadow(0 0 0px #ff7b72); }
+            30% { transform: scale(1.6); filter: drop-shadow(0 0 20px #ff7b72); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 0px #ff7b72); }
+        }
+
+        .floating-heart {
+            position: fixed;
+            color: #ff7b72;
+            font-size: 1.5rem;
+            pointer-events: none;
+            z-index: 9999;
+            animation: flyUp 1.5s linear forwards;
+        }
+
+        @keyframes flyUp {
             0% {
-                transform: scale(1);
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 1;
             }
-
-            50% {
-                transform: scale(1.2);
-            }
-
             100% {
-                transform: scale(1);
+                transform: translateY(-150px) translateX(var(--random-x)) scale(0.5);
+                opacity: 0;
             }
         }
 
@@ -282,15 +322,8 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         textarea {
@@ -309,6 +342,14 @@
 
 <body>
 
+    <!-- Pulsante Controllo Musica Stereo -->
+    <button class="audio-control" id="audioToggle">
+        <span id="audioIcon">🎵</span> <span id="audioText">Attiva Musica</span>
+    </button>
+
+    <!-- Elemento Audio Sottofondo (Love Me Not) -->
+    <audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
     <div class="hero">
         <h1>Sito Caricato Con Successo... 🌐</h1>
         <p style="color: #8b949e; max-width: 300px; font-size: 1.1rem; margin-top: 10px;">
@@ -320,56 +361,48 @@
     <div class="timeline-container">
 
         <div class="reveal-section">
-            <h2>Capitolo 1: il secondo inizio</h2>
-            <p>Così a caso, Francesca mi scrive "hey, sblocca Greta" e da lì è reiniziato tutto. Era proprio il 15
-                giugno, proprio come oggi.</p>
+            <h2>Capitolo 1: Il secondo inizio</h2>
+            <p>Così a caso, Francesca mi scrive "Ehi, sblocca Greta" e da lì è ricominciato tutto. Era proprio il 15 giugno, proprio come oggi.</p>
             <div class="image-container">
                 <img src="https://picsum.photos/600/400?random=1" alt="Foto Inizio">
             </div>
         </div>
 
         <div class="reveal-section">
-            <h2>Capitolo 2: il colpo di scena</h2>
-            <p>Neanche dopo una settimana abbiamo smesso di scriverci (world record) e poi mi mandi uno sticker e il
-                messaggio "NON ME LO RICORDOOO quindi lo metterò appena ricordo".</p>
+            <h2>Capitolo 2: Il colpo di scena</h2>
+            <p>Neanche dopo una settimana abbiamo smesso di scriverci (world record) e poi mi mandi uno sticker con il messaggio: "NON ME LO RICORDOOO, quindi lo metterò appena ricordo".</p>
             <div class="image-container">
                 <img src="https://picsum.photos/600/400?random=2" alt="Foto Momenti Belli">
             </div>
         </div>
 
         <div class="reveal-section">
-            <h2>Capitolo 3: sta andando tutto troppo bene</h2>
-            <p>Poi ci siamo iniziati a scrivere ogni giorno, ogni minuto, ogni secondo. (E meno male che a me piaceva)
-                Addirittura quando ti si bloccava WhatsApp ci scrivevamo su TikTok inviandoci TikTok strani ma belli...
-                penso..</p>
+            <h2>Capitolo 3: Sta andando tutto troppo bene</h2>
+            <p>Poi abbiamo iniziato a scriverci ogni giorno, ogni minuto, ogni secondo. (E meno male che a me faceva piacere!). Addirittura, quando ti si bloccava WhatsApp, ci scrivevamo su TikTok inviandoci video strani ma belli... penso...</p>
             <div class="image-container">
                 <img src="https://picsum.photos/600/400?random=3" alt="Foto Bug">
             </div>
         </div>
 
         <div class="reveal-section">
-            <h2>Capitolo 4: cosa sta succedendo</h2>
-            <p>Senza rendermene conto ci siamo iniziati ad aprire l'uno con l'altra fino addirittura a matchare a fare
-                chiamate, videochiamate ogni secondo stavo da dio con te, per me eri tutto. (Il periodo migliore secondo
-                me, concordi?)</p>
+            <h2>Capitolo 4: Cosa sta succedendo?</h2>
+            <p>Senza rendermene conto abbiamo iniziato ad aprirci l'uno con l'altra, fino ad arrivare a fare chiamate e videochiamate ogni secondo. Stavo da dio con te, per me eri tutto. (Il periodo migliore secondo me. Concordi?)</p>
             <div class="image-container">
                 <img src="https://picsum.photos/600/400?random=4" alt="Foto Silenzio">
             </div>
         </div>
 
         <div class="reveal-section">
-            <h2>Capitolo 5: il momento più basso</h2>
-            <p>All'improvviso abbiamo smesso di scriverci ed è stato strano per me, mi sentivo vuoto, mi mancava
-                qualcosa... mi mancavi tu</p>
+            <h2>Capitolo 5: Il momento più basso</h2>
+            <p>All'improvviso abbiamo smesso di scriverci ed è stato strano per me. Mi sentivo vuoto, mi mancava qualcosa... mi mancavi tu.</p>
             <div class="image-container">
                 <img src="https://picsum.photos/600/400?random=5" alt="Foto Riavvio">
             </div>
         </div>
 
         <div class="reveal-section">
-            <h2>Capitolo 6: colpo di scena parte due 🔄</h2>
-            <p>All'improvviso boom, rieccoci, almeno spero.. (non mi bloccare a caso ti prego). Ora è il 15 giugno 2026
-                ed è pure il tuo compleanno, ed è passato esattamente un anno da quando siamo tornati a parlare</p>
+            <h2>Capitolo 6: Colpo di scena - parte due 🔄</h2>
+            <p>All'improvviso, boom, rieccoci! Almeno spero... (non mi bloccare a caso, ti prego). Ora è il 15 giugno 2026 ed è pure il tuo compleanno, ed è passato esattamente un anno da quando siamo tornati a parlare.</p>
             <div class="image-container">
                 <img src="https://picsum.photos/600/400?random=6" alt="Foto Oggi">
             </div>
@@ -377,8 +410,8 @@
 
         <div class="reveal-section auguri-card">
             <h2>TANTI AUGURI! 🎉</h2>
-            <p>Greta ti voglio tanto bene, tanti auguri</p>
-            <div class="heart">❤️</div>
+            <p>Greta, ti voglio tanto bene. Tanti auguri!</p>
+            <div class="heart" id="cuoreAuguri">❤️</div>
         </div>
 
         <div class="quiz-section reveal-section">
@@ -393,11 +426,11 @@
 
     <div class="final-section" id="finalSection">
         <div class="final-card">
-            <h2>Meno male che ti è piaciuto (non avevi scelta però va bene così)</h2>
+            <h2>Meno male che ti è piaciuto (non avevi scelta, però va bene così)</h2>
             <p style="color: #8b949e; font-size: 0.95rem; margin-bottom: 20px;">Scegli una delle seguenti opzioni</p>
 
             <div class="menu-options">
-                <button class="menu-btn" onclick="mostraOpzione('dedica')">1. Leggi dedica 📖</button>
+                <button class="menu-btn" onclick="mostraOpzione('dedica')">1. Leggi la dedica 📖</button>
                 <button class="menu-btn" onclick="mostraOpzione('messaggio')">2. Scrivi un piccolo messaggio ✍️</button>
                 <button class="menu-btn insulto" onclick="mostraOpzione('troll')">3. No, fa schifo 🛑</button>
             </div>
@@ -405,29 +438,21 @@
             <div id="box-dedica" class="output-box">
                 <h4 style="color: #58a6ff; margin-bottom: 10px;">La mia dedica per te:</h4>
                 <p style="font-size: 1rem; line-height: 1.5;">
-                    È stato un anno strano e anche molto agitato, però anche un anno bellissimo e super super
-                    divertente. Mi sono divertito tantissimo con te, ti voglio tanto bene. Ci sono stati tanti mood in
-                    questo anno, dal litigare a voler parlare a sentire che ci mancavamo (HO LE CHAT NON PUOI NEGARLO) e
-                    ora hai 14 anni. Quest'anno grazie a te è passato super velocemente e anche molto bene, cioè mi hai
-                    fatto sentire a casa, eri il mio punto sicuro, sei troppo matura per la tua età. Ti voglio tanto
-                    bene Greta, auguri.
+                    È stato un anno strano e anche molto movimentato, però è stato anche un anno bellissimo e super divertente. Mi sono divertito tantissimo con te, ti voglio un mondo di bene. Ci sono stati tanti mood diversi in questo anno: dal litigare al voler parlare, fino a sentire che ci mancavamo (ho le chat, non puoi negarlo!). E ora hai 14 anni. Quest'anno, grazie a te, è passato super velocemente ed è andato davvero alla grande; mi hai fatto sentire a casa ed eri il mio punto sicuro. Sei troppo matura per la tua età. Ti voglio tanto bene Greta, auguri.
                 </p>
             </div>
 
             <div id="box-messaggio" class="output-box">
-                <h4 style="color: #238636; margin-bottom: 10px;">Dai scrivi un messaggio (solo se vuoi eh.), tranquilla
-                    non mi arriverà mai :</h4>
+                <h4 style="color: #238636; margin-bottom: 10px;">Dai, scrivi un messaggio (solo se vuoi, eh). Tranquilla, non mi arriverà mai:</h4>
                 <textarea id="testoFeedback" placeholder="Scrivi qualcosa qui..."></textarea>
-                <button class="btn" style="background: #238636; color: white; padding: 5px 15px; font-size: 0.9rem;"
-                    onclick="inviaMessaggio()">Invia</button>
-                <p id="msgInviato"
-                    style="color: #58a6ff; font-size: 0.9rem; margin-top: 10px; display: none; font-style: italic;"></p>
+                <button class="btn" style="background: #238636; color: white; padding: 5px 15px; font-size: 0.9rem;" onclick="inviaMessaggio()">Invia</button>
+                <p id="msgInviato" style="color: #58a6ff; font-size: 0.9rem; margin-top: 10px; display: none; font-style: italic;"></p>
             </div>
 
             <div id="box-troll" class="output-box" style="border-color: #da3637; background: #261616;">
-                <h4 style="color: #ff7b72; margin-bottom: 10px;">Ed eccola qui sempre a rovinare il momento 🙄</h4>
+                <h4 style="color: #ff7b72; margin-bottom: 10px;">Ed eccola qui, sempre a rovinare il momento 🙄</h4>
                 <p style="font-size: 1rem; color: #ff7b72; font-family: monospace;">
-                    Non so che mettere, quindi boh. Bella la vita..
+                    Non sapevo cosa mettere, quindi boh. Bella la vita...
                 </p>
             </div>
 
@@ -435,6 +460,27 @@
     </div>
 
     <script>
+        // GESTIONE TRACCIA AUDIO AUDIO
+        const bgMusic = document.getElementById('bgMusic');
+        const audioToggle = document.getElementById('audioToggle');
+        const audioIcon = document.getElementById('audioIcon');
+        const audioText = document.getElementById('audioText');
+
+        // Sostituisci questo link di esempio con l'URL diretto del file MP3 di "Love Me Not"
+        bgMusic.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"; 
+
+        audioToggle.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                audioIcon.innerText = "⏸️";
+                audioText.innerText = "Disattiva Musica";
+            } else {
+                bgMusic.pause();
+                audioIcon.innerText = "🎵";
+                audioText.innerText = "Attiva Musica";
+            }
+        });
+
         // Gestione comparsa elementi allo scroll
         function revealOnScroll() {
             const sections = document.querySelectorAll('.reveal-section');
@@ -456,27 +502,49 @@
         // LOGICA DEI BOTTONI PRINCIPALI (SÌ / NO)
         const btnSi = document.getElementById('btnSi');
         const btnNo = document.getElementById('btnNo');
-        const titoloQuiz = document.getElementById('titoloQuiz'); // Recupero l'elemento del titolo
+        const titoloQuiz = document.getElementById('titoloQuiz'); 
         const finalSection = document.getElementById('finalSection');
+        const cuoreAuguri = document.getElementById('cuoreAuguri');
+
+        // ANIMAZIONE CLICK CUORE
+        cuoreAuguri.addEventListener('click', (e) => {
+            cuoreAuguri.classList.remove('pulse');
+            cuoreAuguri.classList.add('beat-active');
+
+            for (let i = 0; i < 15; i++) {
+                const fHeart = document.createElement('div');
+                fHeart.classList.add('floating-heart');
+                fHeart.innerText = '❤️';
+                
+                fHeart.style.left = (e.clientX + (Math.random() * 40 - 20)) + 'px';
+                fHeart.style.top = (e.clientY + (Math.random() * 40 - 20)) + 'px';
+                fHeart.style.setProperty('--random-x', (Math.random() * 100 - 50) + 'px');
+                
+                document.body.appendChild(fHeart);
+
+                setTimeout(() => { fHeart.remove(); }, 1500);
+            }
+
+            setTimeout(() => { cuoreAuguri.classList.remove('beat-active'); }, 500);
+        });
 
         let clickCount = 0;
         let siPaddingX = 25; let siPaddingY = 10; let siFontSize = 1.1;
         let noPaddingX = 25; let noPaddingY = 10; let noFontSize = 1.1;
 
-        // Array con le scritte che cambiano ogni volta che preme NO
         const frasiNo = [
             "Sicura?? Riprova 🙄",
             "Guarda che il tasto verde è più bello... 🟩",
-            "Ma come no? Dai",
+            "Ma come no? Dai!",
             "Stai scherzando spero...",
-            "Dai premi SÌ, non fare la difficile",
-            "Sei una ingrata. mi ferisci cosi💔",
+            "Dai premi SÌ, non fare la difficile!",
+            "Sei un'ingrata, mi ferisci così 💔",
             "Clicca SÌ e facciamola finita",
-            "Ancora no?? sei una cavalla testarda 🖕",
+            "Ancora no?? Sei una cavalla testarda 🖕",
             "Ti blocco su WhatsApp se continui.",
-            "smettila. sul serio.",
-            "mi stai stancando..",
-            "dai io mi impegno per te e tu non aprezzi che palle",
+            "Smettila, sul serio.",
+            "Mi stai stancando...",
+            "Dai, io mi impegno per te e tu non apprezzi. Che palle!",
             "Niente, non vuoi collaborare... 🛑"
         ];
 
@@ -484,12 +552,10 @@
             clickCount++;
             if (clickCount >= 14) {
                 btnNo.style.display = 'none';
-                titoloQuiz.innerText = "era l'unico modo per farti cliccare si 🙄";
+                titoloQuiz.innerText = "Era l'unico modo per farti cliccare SÌ 🙄";
             } else {
-                // Cambia il testo del titolo prendendo la frase corrispondente dal nostro array
                 titoloQuiz.innerText = frasiNo[clickCount - 1];
 
-                // Mantieni l'ingrandimento del tasto SÌ e il rimpicciolimento del tasto NO
                 siPaddingX += 12; siPaddingY += 6; siFontSize += 0.15;
                 btnSi.style.padding = `${siPaddingY}px ${siPaddingX}px`;
                 btnSi.style.fontSize = `${siFontSize}rem`;
@@ -507,17 +573,13 @@
             finalSection.scrollIntoView({ behavior: 'smooth' });
         });
 
-        // GESTIONE DEL MENU INTERATTIVO A 3 OPZIONI
         function mostraOpzione(tipo) {
-            document.querySelectorAll('.output-box').forEach(box => {
-                box.style.display = 'none';
-            });
+            document.querySelectorAll('.output-box').forEach(box => { box.style.display = 'none'; });
             document.getElementById('msgInviato').style.display = 'none';
             document.getElementById('box-' + tipo).style.display = 'block';
             document.getElementById('box-' + tipo).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        // INVIO DEL MESSAGGIO DI NASCOSTO ALLA TUA EMAIL
         function inviaMessaggio() {
             const area = document.getElementById('testoFeedback');
             const msg = document.getElementById('msgInviato');
@@ -532,31 +594,24 @@
 
             fetch(formspreeUrl, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify({
-                    messaggio_di_greta: testo
-                })
+                headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                body: JSON.stringify({ messaggio_di_greta: testo })
             })
-                .then(response => {
-                    if (response.ok) {
-                        msg.innerText = "Ma sei seria.. hai inviato qualcosa.. non me lo aspettavo.. apprezzo lo sforzo";
-                        msg.style.display = 'block';
-                        area.value = "";
-                    } else {
-                        msg.innerText = "Errore di connessione al database... riprova più tardi.";
-                        msg.style.display = 'block';
-                    }
-                })
-                .catch(error => {
-                    msg.innerText = "Errore di connessione al database... riprova più tardi.";
+            .then(response => {
+                if (response.ok) {
+                    msg.innerText = "Ma sei seria? Hai inviato qualcosa... non me lo aspettavo. Apprezzo lo sforzo!";
                     msg.style.display = 'block';
-                });
+                    area.value = "";
+                } else {
+                    msg.innerText = "Errore di connessione al server... riprova più tardi.";
+                    msg.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                msg.innerText = "Errore di connessione al server... riprova più tardi.";
+                msg.style.display = 'block';
+            });
         }
     </script>
-
 </body>
-
 </html>
